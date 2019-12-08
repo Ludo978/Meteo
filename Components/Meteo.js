@@ -8,9 +8,9 @@ export default class Meteo extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-          title: 'Météo de ' + navigation.getParam('city'),
+          title: 'Météo à ' + navigation.getParam('city'),
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: '#1E90FF',
           },
         };
       };

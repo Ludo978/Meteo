@@ -10,7 +10,7 @@ export default class Row extends Component {
 
     icon = () => {
         const type = this.props.data.weather[0].main
-        let image 
+        let image
         switch (type) {
             case "Clear":
                 image = require('./Icons/sunny.png')
@@ -36,13 +36,13 @@ export default class Row extends Component {
                 break;
         }
 
-        return <Image source ={image} style={styles.image}/>
+        return <Image source={image} style={styles.image} />
     }
 
 
     date = () => {
         moment.locale('fr')
-        let formated = moment(this.props.data.dt * 1000).format('LLLL')
+        let formated = moment(this.props.data.dt * 1000).format('dddd HH:mm')
         return (
             <Text>{formated}</Text>
         )
@@ -52,12 +52,20 @@ export default class Row extends Component {
         const data = this.props.data
         return (
             <View style={styles.main_container}>
-                {this.icon()} 
+                {this.icon()}
+
                 <View style={styles.text_container}>
                     <Text style={styles.date}>{this.date()}</Text>
-                    <Text style={styles.min}>Min : {data.main.temp_min}°C</Text>
-                    <Text style={styles.max}>Max : {data.main.temp_max}°C</Text>
-                    <Text style={styles.wind}>Vent : {data.wind.speed} km/h</Text>
+
+                    <View style={styles.temp_container}>
+                        <Text style={styles.min}>Min : {Math.round(data.main.temp_min)}°C</Text>
+                        <Text style={styles.min}>Max : {Math.round(data.main.temp_max)}°C</Text>
+                    </View>
+
+                    <View style={styles.wind_container}>
+                        <Text style={styles.wind}>Vent : {Math.round(data.wind.speed)} km/h</Text>
+                        <Text style={styles.wind}>Humidité : {Math.round(data.main.humidity)}%</Text>
+                    </View>
 
                 </View>
 
@@ -67,11 +75,14 @@ export default class Row extends Component {
     }
 }
 
+
 const styles = StyleSheet.create({
     main_container: {
         height: 130,
         flexDirection: 'row',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        backgroundColor: '#87CEEB',
+        borderColor: 'grey',
     },
     image: {
         width: 120,
@@ -80,19 +91,30 @@ const styles = StyleSheet.create({
     },
     text_container: {
         flex: 1,
-        marginTop: 20,
-        marginLeft: 5
+        marginTop: 10,
+        marginLeft: 5,
+    },
+    temp_container: {
+        flexDirection: 'row',
+        marginTop: 15,
+        marginBottom: 5,
+    },
+    wind_container: {
+        flexDirection: 'row',
     },
     date: {
-        marginBottom: 10
+        fontWeight: 'bold',
+        fontSize: 22,
     },
     min: {
-        marginBottom: 1
-    },
-    max: {
-        marginBottom: 1
+        marginBottom: 1,
+        fontWeight: 'bold',
+        fontSize: 16,
+        flex: 1,
     },
     wind: {
-
-    }
+        fontWeight: 'bold',
+        fontSize: 16,
+        flex: 1,
+    },
 })
