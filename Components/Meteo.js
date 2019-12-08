@@ -25,7 +25,7 @@ export default class Meteo extends Component {
    
     fetchWeather = () => {
         axios
-            .get('http://api.openweathermap.org/data/2.5/forecast?q=' + this.state.city + '&units=metric&cnt=50&appid=f54660ced6f35bb65bfbc9b4f58a896b')
+            .get('https://api.openweathermap.org/data/2.5/forecast?q=' + this.state.city + '&units=metric&cnt=50&appid=f54660ced6f35bb65bfbc9b4f58a896b')
             .then(response => {
                 this.setState({ data: response.data.list });
             })
